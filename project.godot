@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="roundsFlyka"
+run/main_scene="uid://dbjl4cu8nlv5g"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
