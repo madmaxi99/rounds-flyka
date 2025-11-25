@@ -3,6 +3,8 @@ extends CharacterBody2D
 const WEIGHT = 1.5
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
+var health = 100
+var max_health = 100
 var bullet_speed = 1000
 var airtime:float = 0
 @export var bullet: PackedScene
@@ -12,6 +14,8 @@ var airtime:float = 0
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		fire()
+	
+	show_health()
 
 func _physics_process(delta: float) -> void:
 	velocity -= 0.3*velocity * delta
@@ -58,3 +62,11 @@ func fire():
 	b.shooter = $"."
 	#print($GunRotation/BulletSpawn.rotation)
 	get_tree().root.add_child(b)
+
+func show_health():
+	$HealthBar.set_value(float(health/max_health))
+
+func take_damage(damage:int):
+	health = max(health-damage,0)
+	print(health)
+	print($HealthBar.get_value())
