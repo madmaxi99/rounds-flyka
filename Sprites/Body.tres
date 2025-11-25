@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://daytxvqaea8pl"]
+
+[ext_resource type="Texture2D" uid="uid://dcs6bbrj5d1ay" path="res://Sprites/Body.png" id="1_1roav"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1roav")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
