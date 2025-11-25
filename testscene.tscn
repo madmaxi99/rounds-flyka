@@ -1,36 +1,69 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbjl4cu8nlv5g"]
+[gd_scene load_steps=10 format=3 uid="uid://dbjl4cu8nlv5g"]
 
 [ext_resource type="PackedScene" uid="uid://bg8p3stlm223h" path="res://player.tscn" id="1_jotil"]
+[ext_resource type="Texture2D" uid="uid://da0waot0t3w4d" path="res://mountain-range.jpg" id="2_44gc5"]
+[ext_resource type="PackedScene" uid="uid://ci1kbtn86gwhj" path="res://Platforms/static_platform.tscn" id="3_612pj"]
+[ext_resource type="Script" uid="uid://24fu17t8ewxb" path="res://camera_2d.gd" id="4_asog6"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_612pj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mdrg"]
-size = Vector2(2183, 194)
+size = Vector2(1995.5, 106.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jotil"]
-size = Vector2(62, 805)
+size = Vector2(62, 1228.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44gc5"]
-size = Vector2(123, 754)
+size = Vector2(78.75, 1082)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_612pj"]
+size = Vector2(2103, 58)
 
 [node name="Node2D" type="Node2D"]
 
+[node name="MountainRange" type="Sprite2D" parent="."]
+show_behind_parent = true
+light_mask = 512
+visibility_layer = 512
+position = Vector2(960, 479)
+texture = ExtResource("2_44gc5")
+
 [node name="Player" parent="." instance=ExtResource("1_jotil")]
-visible = true
-position = Vector2(546, 450)
+position = Vector2(988, 1008)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(585, 719)
+material = SubResource("CanvasItemMaterial_612pj")
+position = Vector2(998.75, 1133.25)
 shape = SubResource("RectangleShape2D_8mdrg")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(-20, 401)
+position = Vector2(-31, 612.75)
 shape = SubResource("RectangleShape2D_jotil")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(1202, 377)
+position = Vector2(1959.375, 539)
 shape = SubResource("RectangleShape2D_44gc5")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(94, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(897.5, -31)
+shape = SubResource("RectangleShape2D_612pj")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(691, 198)
+polygon = PackedVector2Array(328, 290, 306, 392, 550, 372, 530, 264)
+
+[node name="Static_Platform" parent="Polygon2D" instance=ExtResource("3_612pj")]
+position = Vector2(-125, -84)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("4_asog6")

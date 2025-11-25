@@ -1,20 +1,23 @@
 extends CharacterBody2D
 
-const WEIGHT = 1.5
-const SPEED = 300.0
-const JUMP_VELOCITY = -500.0
-var health = 100
-var max_health = 100
-var bullet_speed = 1000
+@export var WEIGHT = 1.5
+@export var SPEED = 300.0
+@export var JUMP_VELOCITY = -500.0
+@export var health = 100
+@export var max_health = 100
+@export var bullet_speed = 1000
 var airtime:float = 0
+var blocking:float = 0
+@export var block_time = 0.2
 @export var bullet: PackedScene
 
 
-
 func _process(delta: float) -> void:
+	if blocking > 0: blocking -= delta
 	if Input.is_action_just_pressed("shoot"):
 		fire()
-	
+	if Input.is_action_just_pressed("block"):
+		block()
 	show_health()
 
 func _physics_process(delta: float) -> void:
@@ -28,7 +31,7 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * delta * WEIGHT
 	else: airtime = 0
 
-	# Handle jump.
+	# Handle jump.aa
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
@@ -40,7 +43,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_on_floor() and Input.is_action_pressed("jump"):
 		if airtime <= 20: velocity -= delta*Vector2(0,600)
-		velocity -= delta*Vector2(0,400)
+		velocity -= delta*Vector2(0,100)
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -63,8 +66,11 @@ func fire():
 	#print($GunRotation/BulletSpawn.rotation)
 	get_tree().root.add_child(b)
 
+func block():
+	blocking = block_time
+
 func show_health():
-	$HealthBar.set_value(float(health/max_health))
+	$HealthBar.set_value(float(health/float(max_health)))
 
 func take_damage(damage:int):
 	health = max(health-damage,0)

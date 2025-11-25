@@ -17,21 +17,20 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
-		pass
 	var collision_info = move_and_collide(velocity*delta)
 	if collision_info:
 		var collider = collision_info.get_collider()
 		if collider != null && collider.has_method("fire"):
-			#if collider.blocking >=1 :
-			#	velocity = velocity.bounce(collision_info.get_normal())
-			#else: if collider.blocking <=0:
-			queue_free()
+			if collider.blocking > 0 :
+				velocity = velocity.bounce(collision_info.get_normal())
+				return
+			else: if collider.blocking <=0:
+				queue_free()
+			print(collider.blocking)
 		else: if bounces == 0:
 			queue_free()
 		else: if bounces > 0 : 
 			bounces-=1
 			velocity = velocity.bounce(collision_info.get_normal())
 		if collider.has_method("take_damage") :
-			print("ouchd")
 			collider.take_damage(damage)
-	pass

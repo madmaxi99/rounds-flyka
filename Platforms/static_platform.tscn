@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci1kbtn86gwhj"]
+
+[ext_resource type="Script" uid="uid://cvygx5iby756s" path="res://Platforms/static_platform_collisionpolygon.gd" id="1_jm10p"]
+
+[node name="Static_Platform" type="StaticBody2D"]
+
+[node name="Static_Platform_CollisionPolygon" type="CollisionPolygon2D" parent="."]
+script = ExtResource("1_jm10p")
